@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey/Components/task_list.dart';
+import 'package:todoey/tasks_list.dart';
 
 class AddTaskScreen extends StatefulWidget {
 
-  final Function buttonCallback;
-  AddTaskScreen(this.buttonCallback);
+  // final Function buttonCallback;
+  // AddTaskScreen(this.buttonCallback);
 
   @override
   _AddTaskScreenState createState() => _AddTaskScreenState();
@@ -68,7 +71,9 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                     ),
                   ),
                   onPressed: (){
-                    widget.buttonCallback(taskName);
+                    Provider.of<TasksList>(context, listen: false).addTask(taskName);
+                    Navigator.pop(context);
+                    //widget.buttonCallback(taskName);
                   },
                 ),
               ),
