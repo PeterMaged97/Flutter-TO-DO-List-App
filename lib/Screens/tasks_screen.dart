@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey/Components/task_list.dart';
 import 'package:todoey/Screens/add_task_screen.dart';
-import '../task.dart';
 import 'package:todoey/tasks_list.dart';
 
 class TasksScreen extends StatefulWidget {
@@ -21,6 +20,8 @@ class _TasksScreenState extends State<TasksScreen> {
             child: Icon(Icons.add),
             onPressed: () {
               showModalBottomSheet(
+                elevation: 50,
+                enableDrag: true,
                   context: context,
                   builder: (context) => AddTaskScreen(
                       // (String taskName) {
@@ -62,12 +63,16 @@ class _TasksScreenState extends State<TasksScreen> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    Text(
-                      '${Provider.of<TasksList>(context).tasks.length} Tasks',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
+                    Consumer<TasksList>(
+                      builder: (context, tasksList, child){
+                        return Text(
+                            '${tasksList.tasks.length} ${tasksList.tasks.length != 1 ? 'Tasks' : 'Task'}',
+                            style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                        ),
+                        );
+                      },
                     ),
                   ],
                 ),
